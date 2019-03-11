@@ -1,0 +1,9 @@
+{
+    "version": "4",
+    "customControls": [
+        {
+            "name": "otp_auth",
+            "descriptor":"otp/otp.json"
+        }
+    ]
+}

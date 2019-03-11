@@ -1,0 +1,136 @@
+{
+    "name": "otp",
+    "displayName": "OTP micro app",
+    "icon": "https://static.thenounproject.com/png/847891-200.png",
+    "componentType": "custom",
+    "appType": "ionic",
+    "scriptFiles": [
+        "OtpModal.ts"
+    ],
+    "scriptFilesDir":"otp",
+    "ui": {
+        "appCode": {
+            "type": "element",
+            "tagName": "button",
+            "attributes": [
+                {
+                    "key": "studio-id",
+                    "value": null
+                },
+                {
+                    "key": "component-name",
+                    "value": "otp"
+                },
+                {
+                    "key": "ion-button",
+                    "value": null
+                },
+                {
+                    "key": "(click)",
+                    "value": "openOTP()"
+                  }   
+            ],
+            "children": [
+                {
+                    "type": "text",
+                    "content": "OTP Auth"
+                }
+            ]
+        },
+        "renderCode": {
+            "type": "element",
+            "tagName": "button",
+            "attributes": [
+                {
+                    "key": "studio-id",
+                    "value": null
+                },
+                {
+                    "key": "component-name",
+                    "value": "otp"
+                },
+                {
+                    "key": "class",
+                    "value": "button button-positive"
+                }
+            ],
+            "children": [
+                {
+                    "type": "text",
+                    "content": "OTP Auth"
+                }
+            ]
+        }
+    },
+    "properties": [
+        {
+            "category": "values",
+            "source": [
+                "input"
+            ],
+            "html": [
+                {
+                    "label": "studio-id",
+                    "appCode": "attributes[0].value",
+                    "renderCode": "attributes[0].value"
+                }
+            ],
+            "javascript": [         
+                {
+                  "label": "On Login Success",
+                  "type":"navigation-pageName",
+                  "key": "otpSuccessPage"
+                }              
+            ]
+        }
+    ],
+    "script": {
+        "imports": [
+            {
+                "className": "OptModal",
+                "relativePath": "../../componentScripts/OtpModal",
+                "type": "namedImports"
+            }
+        ],
+        "appModuleImports": [
+            {
+                "className": "OptModal",
+                "relativePath": "../componentScripts/OtpModal"
+            }
+        ],
+        "constructorHandler": {
+            "arguments": [
+                {
+                    "name": "modalController",
+                    "type": "ModalController",
+                    "scope": "public"
+                }
+            ]
+        },
+        "classProperties": [
+            {
+                "name": "otpSuccessPage",
+                "type": "any"
+            }
+        ],
+        "methods": [
+            {
+                "name": "openOTP",
+                "statements": [
+                    "const modal = this.modalController.create(OptModal);",
+                    "modal.onDidDismiss((err,res)=>{if(err){ alert('Authentication Failed'); } else { this.navCtrl.push(this.otpSuccessPage);}});",
+                    "modal.present();"
+                ]
+            }
+        ]
+    },
+    "backend": {
+        "deploy-artifacts": [
+            {
+                "type": "mfp-adapter",
+                "dir_name": "otp",
+                "adapter-artifact": "TwilioOTP.adapter"
+            }
+        ]
+    }
+}
